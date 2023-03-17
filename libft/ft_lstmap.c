@@ -1,27 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pushswap.h                                         :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrodor <rrodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 15:18:15 by rrodor            #+#    #+#             */
-/*   Updated: 2023/03/15 20:26:44 by rrodor           ###   ########.fr       */
+/*   Created: 2023/02/11 17:58:17 by rrodor            #+#    #+#             */
+/*   Updated: 2023/03/12 18:35:51 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSHSWAP_H
-# define PUSHSWAP_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include "libft.h"
+t_list	*ft_lstmap(t_list *lst, int (*f)(int), void (*del)(int))
+{
+	t_list	*res;
+	t_list	*x;
 
-int		testatoi(char *str);
-void	ft_printlst(int n);
-void	ps_swap(t_list *lsta, t_list *lstb, char c);
-void	ps_push(t_list **la, t_list **lb, char c);
-void	ps_rotate(t_list **la, t_list **lb, char c);
-void	ps_revrotate(t_list **la, t_list **lb, char c);
-void	ft_pushswap(t_list **la, t_list **lb);
-
-#endif
+	res = 0;
+	x = 0;
+	if (!lst)
+		return (NULL);
+	while (lst)
+	{
+		x = ft_lstnew(((f(lst->content))));
+		if (!(x->content))
+		{
+			ft_lstdelone(x, del);
+			return (NULL);
+		}
+		if (!res)
+			res = x;
+		else
+			ft_lstadd_back(&res, x);
+		lst = lst->next;
+	}
+	return (res);
+}
