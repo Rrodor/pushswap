@@ -6,98 +6,89 @@
 /*   By: rrodor <rrodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:52:59 by rrodor            #+#    #+#             */
-/*   Updated: 2023/03/17 20:29:30 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/03/23 19:33:57 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 #include "libft.h"
 
-int	testatoi(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i])
-	{
-		if (ft_isdigit(str[i]))
-			i++;
-		else
-			return (0);
-	}
-	return (1);
-}
-
 void	ft_printlst(int n)
 {
 	ft_printf("%d\n", n);
 }
 
-int	checkolst(t_list **la, int *d)
+void	ft_ifswap(t_list **la, t_list **lb)
 {
-	t_list	*t;
-	int		i;
-
-	i = 0;
-	t = *la;
-	while (t->next)
+ if ((*la) && (*la)->next && ((*la)->content > ((*la)->next)->content))
 	{
-		if (t->content > (t->next)->content)
-		{
-			*d = (t->next)->content;
-			return (i);
-		}
-		t = t->next;
-		i++;
+	 if ((*lb) && (*lb)->next && ((*lb)->content < ((*lb)->next)->content))
+			ps_swap(*la, *lb, 's');
+		else
+			ps_swap(*la, *lb, 'a');
 	}
-	return (-1);
+	else if ((*lb) && (*lb)->next && ((*lb)->content < ((*lb)->next)->content))
+		ps_swap(*la, *lb, 'b');
+	/*if ((*la) && (*la)->next && (ft_lstlastlast(*la)->content > (ft_lstlast(*la)->content)))
+	{
+	 if ((*lb) && (*lb)->next && (ft_lstlastlast(*lb)->content > (ft_lstlast(*lb)->content)))
+		{
+			ps_revrotate(la, lb, 'r');
+			ps_revrotate(la, lb, 'r');
+			ps_swap(*la, *lb, 's');
+			ps_rotate(la, lb, 'r');
+			ps_rotate(la, lb, 'r');
+		}
+		else 
+		{
+			ps_revrotate(la, lb, 'a');
+			ps_revrotate(la, lb, 'a');
+			ps_swap(*la, *lb, 'a');
+			ps_rotate(la, lb, 'a');
+			ps_rotate(la, lb, 'a');
+		}
+	}
+	else if ((*lb) && (*lb)->next && (ft_lstlastlast(*lb)->content > (ft_lstlast(*lb)->content)))
+	{
+		ps_revrotate(la, lb, 'a');
+		ps_revrotate(la, lb, 'a');
+		ps_swap(*la, *lb, 'a');
+		ps_rotate(la, lb, 'a');
+		ps_rotate(la, lb, 'a');
+	}*/
 }
 
 void	ft_pushswap(t_list **la, t_list **lb)
 {
-	int	t;
-	int	i;
-	int	l;
+	int		t;
+	int		i;
+	int		l;
 
 	l = ft_lstsize(*la);
-	i = checkolst(la, &t);
-	ft_printf("i=%d\n", i);
-	//ft_printf("Ti=%d v1=%d t=%dT\n", i, (*la)->content, t);
-	while (i >= 0)
+	while (checkolst(la, &t) != -1)
 	{
-		if ((*la)->next && ((*la)->content > ((*la)->next)->content))
-			ps_swap(*la, *lb, 'a');
-		if (i < l/2)
-		{
-			while (*la && (*la)->content != t)
-			{
-				//ft_printf("v=%d t=%d\n", (*la)->content, t);
-				if (t > (*la)->content)
-					ps_push(la, lb, 'b');
-				else
-					ps_rotate(la, lb, 'a');
-			}
-			while (*lb != NULL && (*lb)->content > (*la)->content)
-				ps_push(la, lb, 'a');
-		}
-		else
-		{
-			while (*la && (*la)->content != t)
-			{
-				//ft_printf("v=%d t=%d\n", (*la)->content, t);
-				if (t > (*la)->content)
-					ps_push(la, lb, 'b');
-				else
-					ps_revrotate(la, lb, 'a');
-			}
-			while (*lb != NULL && (*lb)->content > (*la)->content)
-				ps_push(la, lb, 'a');
-		}
 		i = checkolst(la, &t);
-		ft_printf("i=%d\n", i);
+		ft_printf("\nINF\n");
+		while ((*la)->content != t)
+		{
+			if ((*la)->content < t)
+				ps_push(la, lb, 'b');
+			else
+				ps_rotate(la, lb, 'a');
+		}
+		/*ps_rotate(la, lb, 'a');
+		while ((*la)->content != t)
+		{
+			if ((*la)->content > t)	
+				ps_push(la, lb, 'b');
+			else
+					ps_rotate(la, lb, 'a');
+			}*/
+		while (*lb && (*lb)->content > (*la)->content)
+				ps_push(la, lb, 'a');
 	}
+	while (*lb)
+		ps_push(la, lb, 'a');
 }
 
 int	main(int argc, char **argv)
@@ -136,5 +127,9 @@ int	main(int argc, char **argv)
 	la = &lsta;
 	lb = &lstb;
 	ft_pushswap(la, lb);
+	ft_printf("\nA\n");
+	ft_lstiter(*la, (ft_printlst));
+	ft_printf ("\nB\n");
+	ft_lstiter(*lb, (ft_printlst));
 	return (0);
 }
