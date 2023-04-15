@@ -1,16 +1,32 @@
 NAME= pushswap
+SRC= pushswap.c pushswap_mvm.c pushswap_utils.c pushswap_lst.c pushswap_lst2.c
+SRCPATH= ./cfiles/
+OBJ= $(SRC:.c=.o)
+OBJS= $(addprefix $(OBJPATH), $(OBJ))
+SRCS= $(addprefix $(SRCPATH), $(SRC))
+OBJPATH= ./ofiles/
 
-SRC= libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_isalnum.c libft/ft_isascii.c libft/ft_isprint.c libft/ft_strlen.c libft/ft_memset.c libft/ft_bzero.c libft/ft_memcpy.c libft/ft_memmove.c libft/ft_strlcpy.c libft/ft_strlcat.c libft/ft_toupper.c libft/ft_tolower.c libft/ft_strchr.c libft/ft_strrchr.c libft/ft_strncmp.c libft/ft_memchr.c libft/ft_memcmp.c libft/ft_strnstr.c libft/ft_atoi.c libft/ft_calloc.c libft/ft_strdup.c libft/ft_substr.c libft/ft_strjoin.c libft/ft_strtrim.c libft/ft_split.c libft/ft_itoa.c libft/ft_strmapi.c libft/ft_striteri.c libft/ft_putchar_fd.c libft/ft_putstr_fd.c libft/ft_putendl_fd.c libft/ft_putnbr_fd.c libft/ft_printf.c libft/ft_printf_utils.c libft/ft_printcspdi.c libft/ft_printuxX.c libft/ft_lstnew.c libft/ft_lstadd_front.c libft/ft_lstsize.c libft/ft_lstlast.c libft/ft_lstadd_back.c libft/ft_lstdelone.c libft/ft_lstclear.c libft/ft_lstiter.c libft/ft_lstmap.c file1.c pushswap_mvm.c pushswap_utils.c
+CC= gcc
 
-all: $(NAME)
+all: makelib $(NAME)
+
+makelib:
+	make -C ./libft2
+
+%.o: $(SRCPATH)%.c
+	mkdir -p ofiles
+	$(CC) -I./hfiles -I./libft2  -o $(OBJPATH)$@ -c $<
 
 $(NAME): $(OBJ)
-	gcc -Wall -Wextra -Werror -I. $(SRC) -o $(NAME)
+	$(CC) $(OBJS) -o $(NAME) -Llibft2 -lft -L/usr/lib -lXext -lX11 -lm -lz -I./libft2 -I./hfiles
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJS)
+	rmdir ofiles
+	make clean -C ./libft2
 
 fclean: clean
 	rm -f $(NAME)
+	make fclean -C ./libft2
 
 re: fclean all

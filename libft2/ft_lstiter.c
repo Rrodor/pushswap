@@ -1,48 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrodor <rrodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/11 17:04:13 by rrodor            #+#    #+#             */
-/*   Updated: 2023/03/12 18:33:58 by rrodor           ###   ########.fr       */
+/*   Created: 2023/02/11 16:06:16 by rrodor            #+#    #+#             */
+/*   Updated: 2023/02/12 16:40:49 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(int))
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
 	t_list	*i;
-	t_list	*j;
 
-	if (!lst || !*lst || !del)
+	if (!lst)
 		return ;
-	i = *lst;
-	while (ft_lstsize(i) > 1)
+	i = lst;
+	while (i)
 	{
-		j = i->next;
-		i->next = j->next;
-		ft_lstdelone(j, del);
+		f(i->content);
+		i = i->next;
 	}
-	ft_lstdelone(i, del);
-	*lst = 0;
 }
-
-/*
-int	main(int argc, char **argv)
-{
-	t_list a;
-	t_list b;
-	t_list c;
-
-	int	test = 1;
-	int	test2 = 2;
-	a = ft_lstnew(&test);
-	b = ft_lstnew(&test);
-	c = ft_lstnew(&test);
-
-	ft_lstadd_back(&a, b);
-	return (0);
-}*/

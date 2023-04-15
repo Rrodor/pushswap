@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   pushswap_lst2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrodor <rrodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/11 15:55:26 by rrodor            #+#    #+#             */
-/*   Updated: 2023/03/14 15:39:19 by rrodor           ###   ########.fr       */
+/*   Created: 2023/04/15 14:29:08 by rrodor            #+#    #+#             */
+/*   Updated: 2023/04/15 14:30:02 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pushswap.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(int))
+int	ps_lstsize(t_intlist *lst)
 {
-	if (!lst)
-		return ;
-	if (!del)
-		return ;
-	del(lst->content);
-	free(lst);
+	int		i;
+
+	i = 0;
+	while (lst)
+	{
+		i++;
+		lst = lst->next;
+	}
+	return (i);
 }

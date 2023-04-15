@@ -6,7 +6,7 @@
 /*   By: rrodor <rrodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 18:46:18 by rrodor            #+#    #+#             */
-/*   Updated: 2023/03/23 18:49:12 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/04/15 14:41:57 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	testatoi(char *str)
     return (1);
 }
 
-int checkolst(t_list **la, int *d)
+int checkolst(t_intlist **la, int *d)
 {
-    t_list  *t;
+    t_intlist  *t;
     int     i;
 
     i = 0;
@@ -48,14 +48,35 @@ int checkolst(t_list **la, int *d)
     }
     return (-1);
 }
-
-t_list *ft_lstlastlast(t_list *l)
+int checkrevolst(t_intlist **la, int *d)
 {
-    t_list *t;
+    t_intlist  *t;
+    int     i;
+
+    if (!la || !*la)
+        return (-1);
+    i = 0;
+    t = *la;
+    while (t->next)
+    {
+        if (t->content < (t->next)->content)
+        {
+            *d = (t->next)->content;
+            //ft_printf("j = %d, t->next->content = %d", j, (t->next)->content);
+            return (i);
+        }
+        t = t->next;
+        i++;
+    }
+    return (-1);
+}
+
+t_intlist *ft_lstlastlast(t_intlist *l)
+{
+    t_intlist *t;
 
     t = l;
     while (t->next->next)
         t = t->next;
     return (t);
 }
-
