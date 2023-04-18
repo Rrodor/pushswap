@@ -6,7 +6,7 @@
 /*   By: rrodor <rrodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:18:15 by rrodor            #+#    #+#             */
-/*   Updated: 2023/04/15 18:35:35 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/04/19 01:03:20 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <stdlib.h>
 # include "libft.h"
+
+# define SIZEPART 50
 
 typedef struct s_intlist
 {
@@ -31,7 +33,7 @@ void		ps_revrotate(t_intlist **la, t_intlist **lb, char c);
 void		ft_pushswap(t_intlist **la, t_intlist **lb);
 int			checkolst(t_intlist **la, int *d);
 int     	checkrevolst(t_intlist **la, int *d);
-t_intlist 		*ft_lstlastlast(t_intlist *lst);
+t_intlist	*ft_lstlastlast(t_intlist *lst);
 int			*ft_reftab(t_intlist **la, int *size);
 t_intlist	*ps_lstnew(int content);
 void		ps_lstadd_back(t_intlist **lst, t_intlist *new);
@@ -39,6 +41,9 @@ void		ps_lstadd_front(t_intlist **lst, t_intlist *new);
 void		ps_lstiter(t_intlist *lst, void (*f)(int));
 t_intlist	*ps_lstlast(t_intlist *lst);
 int			ps_lstsize(t_intlist *lst);
-t_intlist **ft_divide(t_intlist **la, t_intlist **lb, int part, int *tab, int size);
+void		**ft_divide(t_intlist **la, t_intlist **lb, int part, int *tab, int size, int test);
+int			ft_shortpath(t_intlist **la, int *tab, int size, int part);
+void		ft_ifswap(t_intlist **la,t_intlist **lb);
+void		ft_tri(t_intlist **la, t_intlist **lb, int *tab, int size);
 
 #endif
