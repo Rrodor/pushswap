@@ -6,7 +6,7 @@
 /*   By: rrodor <rrodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:52:59 by rrodor            #+#    #+#             */
-/*   Updated: 2023/04/19 01:06:18 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/04/19 20:24:27 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,18 @@ void	ft_pushswap(t_intlist **la, t_intlist **lb)
 	part = size / SIZEPART;
 	if (size % SIZEPART)
 		part++;
-	ft_divide(la, lb, part, tab, size, 2);
+	ft_divide(la, lb, part, tab, size);
 	//ft_divide(lb, la, part, tab, size, 2);
-	//ft_tri(la, lb, tab, size);
+	ft_tri(la, lb, tab, size, tab[size - 1]);
 	//ft_printf("%d", part);
 }
 
-void	ft_tri(t_intlist **la, t_intlist **lb, int *tab, int size)
+void	ft_tri(t_intlist **la, t_intlist **lb, int *tab, int size, int max)
 {
 	int	p;
 	int	i;
 	int	j;
-
+	
 	j = 0;
 	p = (*lb)->content;
 	ps_push(la, lb, 'a');
@@ -73,12 +73,59 @@ void	ft_tri(t_intlist **la, t_intlist **lb, int *tab, int size)
 		}
 		j++;
 	}
+	while (ft_inorder(la, &p))
+	{
+		i = 0;
+		while ((*la)->content != p)
+		{
+			if ((*la)->content < p)
+				ps_rotate(la, lb, 'a');
+			else
+			{
+				ps_push(la, lb, 'b');
+				i++;
+			}
+		}
+		ps_rotate(la, lb, 'a');
+		while (i > 0)
+		{
+			ps_push(la, lb, 'a');
+			ps_rotate(la, lb, 'a');
+			i--;
+		}
+		while (ps_lstlast(*la)->content != max)
+		{
+			ps_rotate(la, lb, 'a');
+			//ft_printf ("%d\n", max);
+		}
+	}
 	
 		
 }
 
+int	ft_inorder(t_intlist **la, int *p)
+{
+	t_intlist *l;
+	int			i;
+	
+	l = *la;
+	i = 0;
+	if (ps_lstsize(l) < 2)
+		return (0);
+	while (l != NULL && l->next != NULL)
+	{
+		if (l->content > l->next->content)
+		{
+			*p = l->next->content;
+			return (ps_lstsize(*la) - i);
+		}
+		l = l->next;
+		i++;
+	}
+	return (0);
+}
 
-void **ft_divide(t_intlist **la, t_intlist **lb, int part, int *tab, int size, int test)
+void **ft_divide(t_intlist **la, t_intlist **lb, int part, int *tab, int size)
 {
 	//t_intlist	**lb;
 	int			i;
@@ -88,18 +135,18 @@ void **ft_divide(t_intlist **la, t_intlist **lb, int part, int *tab, int size, i
 	int			max;
 
 	i = 0;
-	while (i < part - 1 && ps_lstsize(*la) > SIZEPART / test)
+	while (i < part - 1 && ps_lstsize(*la) > SIZEPART)
 	{
 		j = 0;
-		while (ps_lstsize(*lb) < ((SIZEPART / test) * (i + 1)))
+		while (ps_lstsize(*lb) < (SIZEPART * (i + 1)))
 		{
 			//ft_printf("%d", ps_lstsize(*la));
 			//ft_printf("\n%d\n\n", tab[i * 10]);
 			k = 0;
-			min = tab[i * (SIZEPART / test)];
-			while ((i * (SIZEPART / test)) + k < size - 1 && k < SIZEPART / test)
+			min = tab[i * SIZEPART];
+			while ((i * SIZEPART) + k < size - 1 && k < SIZEPART)
 				k++;
-			max = tab[i * (SIZEPART / test) + k];
+			max = tab[i * SIZEPART + k];
 			//ft_printf ("%d %d %d\n", (*la)->content, min, max);
 			if ((*la)->content < max)
 			{

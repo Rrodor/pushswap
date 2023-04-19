@@ -1,4 +1,4 @@
-NAME= pushswap
+NAME= push_swap
 SRC= pushswap.c pushswap_mvm.c pushswap_utils.c pushswap_lst.c pushswap_lst2.c
 SRCPATH= ./cfiles/
 OBJ= $(SRC:.c=.o)
