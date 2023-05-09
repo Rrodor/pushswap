@@ -18,7 +18,7 @@ makelib:
 	$(CC) -I./hfiles -I./libft2  -o $(OBJPATH)$@ -c $<
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJS) -o $(NAME) -Llibft2 -lft -L/usr/lib -lXext -lX11 -lm -lz -I./libft2 -I./hfiles
+	$(CC) $(OBJS) -o $(NAME) -Llibft2 -lft -L/usr/lib -I./libft2 -I./hfiles
 
 clean:
 	rm -f $(OBJS)

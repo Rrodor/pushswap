@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pushswap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrodor <rrodor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:52:59 by rrodor            #+#    #+#             */
-/*   Updated: 2023/05/05 19:47:15 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/05/09 20:44:50 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void	ft_pushswap(t_intlist **la, t_intlist **lb)
 	int		size;
 	int		i;
 	int		part;
-
+	int		j;
+	
 	i = 0;
+	j = 0;
 	tab = ft_reftab(la, &size);
 	//ft_printf("size = %d\n", size);
 	/*while (i < size)
@@ -35,13 +37,19 @@ void	ft_pushswap(t_intlist **la, t_intlist **lb)
 	}*/
 	//ps_push(la, lb, 'b');
 	part = size / SIZEPART;
-	if (size % SIZEPART)
-		part++;
-	ft_divide(la, lb, part, tab, size);
-	ft_sort(la, lb);
-	//ft_divide(lb, la, part, tab, size, 2);
-	while (ps_lstsize(*la) < size && i < 1)
+	ft_printf("%d\n", part);
+	if (size > SIZEPART && size % SIZEPART)
 	{
+		part++;
+		j++;
+	}
+	ft_divide(la, lb, part, tab, size);
+	if (j == 1)
+		ft_sort(la, lb);
+	//ft_divide(lb, la, part, tab, size, 2);
+	while (ps_lstsize(*la) < size)
+	{
+		ft_printf ("=================================%d\n", i);
 		ft_tri(la, lb, tab, size, tab[size - 1]);
 		i++;
 	}
@@ -141,13 +149,13 @@ void	ft_tri(t_intlist **la, t_intlist **lb, int *tab, int size, int max)
 		{
 			//ft_printf("C");
 			ps_push(la, lb, 'a');
-			ps_rotate(la, lb, 'a');
+			//ps_rotate(la, lb, 'a');
 			i--;
 		}
 		while (ps_lstlast(*la)->content != max)
 		{
 			//ft_printf("B");
-			ps_rotate(la, lb, 'a');
+			ps_revrotate(la, lb, 'a');
 			//ft_printf ("%d\n", max);
 		}
 	}
