@@ -6,7 +6,7 @@
 /*   By: rrodor <rrodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:52:59 by rrodor            #+#    #+#             */
-/*   Updated: 2023/04/19 20:24:27 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/05/05 19:47:15 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,50 @@ void	ft_pushswap(t_intlist **la, t_intlist **lb)
 	i = 0;
 	tab = ft_reftab(la, &size);
 	//ft_printf("size = %d\n", size);
-	while (i < size)
+	/*while (i < size)
 	{
-		//ft_printf("%d\n", tab[i]);
+		ft_printf("%d\n", tab[i]);
 		i++;
-	}
+	}*/
 	//ps_push(la, lb, 'b');
 	part = size / SIZEPART;
 	if (size % SIZEPART)
 		part++;
 	ft_divide(la, lb, part, tab, size);
+	ft_sort(la, lb);
 	//ft_divide(lb, la, part, tab, size, 2);
-	ft_tri(la, lb, tab, size, tab[size - 1]);
+	while (ps_lstsize(*la) < size && i < 1)
+	{
+		ft_tri(la, lb, tab, size, tab[size - 1]);
+		i++;
+	}
 	//ft_printf("%d", part);
+}
+
+void	ft_sort(t_intlist **la, t_intlist **lb)
+{
+	int		p;
+	int		i;
+
+	i = 0;
+	while (ft_inorder(la, &p))	
+	{
+		while ((*la)->content != p)
+		{
+			if ((*la)->content > p)
+				ps_rotate(la, lb, 'a');
+			else 
+			{
+				ps_push(la, lb, 'b');
+				i++;
+			}
+		}
+		while (i > 0)
+		{
+			ps_push(la, lb, 'a');
+			i--;
+		}
+	}
 }
 
 void	ft_tri(t_intlist **la, t_intlist **lb, int *tab, int size, int max)
@@ -48,17 +79,30 @@ void	ft_tri(t_intlist **la, t_intlist **lb, int *tab, int size, int max)
 	int	p;
 	int	i;
 	int	j;
+	//int sizep;
 	
 	j = 0;
+	p = ft_eighthoccur(lb);
 	p = (*lb)->content;
-	ps_push(la, lb, 'a');
-	while (j < SIZEPART - 1)
+	//ps_push(la, lb, 'a');
+	//sizep = size % SIZEPART;
+	/*if (sizep > 0)
 	{
-		if ((*lb)->content < p)
+		ps_push(la, lb, 'a');
+		while (j < sizep)
+		{
+			if ()		
+		}
+	}*/
+	//ps_push(la, lb, 'a');
+	i = 0;
+	while (j < SIZEPART)
+	{
+		if ((*lb)->content > p)
 			ps_push(la, lb, 'a');
 		else
 		{
-			i = 0;
+			//i = 0;
 			/*while ((*la)->content != p)
 			{
 				ps_rotate(la, lb, 'a');
@@ -67,17 +111,23 @@ void	ft_tri(t_intlist **la, t_intlist **lb, int *tab, int size, int max)
 			ps_push(la, lb, 'a');
 			//while (i >= 0)
 			//{
-				ps_rotate(la, lb, 'a');
-			//	i--;
+			ps_rotate(la, lb, 'a');
+			i++;
 			//}
 		}
-		j++;
+		j++; 
+	}
+	while (i > 0)
+	{
+		ps_revrotate(la, lb, 'a');
+		i--;
 	}
 	while (ft_inorder(la, &p))
 	{
 		i = 0;
 		while ((*la)->content != p)
 		{
+			//ft_printf("A");
 			if ((*la)->content < p)
 				ps_rotate(la, lb, 'a');
 			else
@@ -89,21 +139,36 @@ void	ft_tri(t_intlist **la, t_intlist **lb, int *tab, int size, int max)
 		ps_rotate(la, lb, 'a');
 		while (i > 0)
 		{
+			//ft_printf("C");
 			ps_push(la, lb, 'a');
 			ps_rotate(la, lb, 'a');
 			i--;
 		}
 		while (ps_lstlast(*la)->content != max)
 		{
+			//ft_printf("B");
 			ps_rotate(la, lb, 'a');
 			//ft_printf ("%d\n", max);
 		}
 	}
-	
-		
 }
 
-int	ft_inorder(t_intlist **la, int *p)
+int	ft_eighthoccur(t_intlist **l)
+{
+	int	i;
+	t_intlist *L;
+	
+	i = 0;
+	L = *l;
+	while (i < 8)
+	{
+		L = L->next;
+		i++;
+	}
+	return (L->content);
+}
+
+/*int	ft_inorder(t_intlist **la, int *p)
 {
 	t_intlist *l;
 	int			i;
@@ -122,7 +187,43 @@ int	ft_inorder(t_intlist **la, int *p)
 		l = l->next;
 		i++;
 	}
+	i = ps_lstsize(*la);
 	return (0);
+}*/
+
+int	ft_inorder(t_intlist **la, int *p)
+{
+	t_intlist	*l;
+	int			i;
+
+	i = ps_lstsize(*la);
+	if (i < 2)
+		return (0);
+	l = ps_lstelem(la, i-2);
+	while (l->content != (*la)->content)
+	{
+		if (l->content > l->next->content)
+		{
+			*p = l->next->content;
+			return (i + 1);
+		}
+		l = ps_lstelem(la, i-2);
+		i--;
+	}
+	return (0);
+}
+
+t_intlist	*ps_lstelem(t_intlist **la, int i)
+{
+	t_intlist	*l;
+
+	l = *la;
+	while (i > 0)
+	{
+		l = l->next;
+		i--;
+	}
+	return (l);
 }
 
 void **ft_divide(t_intlist **la, t_intlist **lb, int part, int *tab, int size)
@@ -155,7 +256,7 @@ void **ft_divide(t_intlist **la, t_intlist **lb, int part, int *tab, int size)
 			}
 			else if (ft_shortpath(la, tab, size, i) == 1)
 			//else
-				ps_rotate(la, lb, 'a');
+			ps_rotate(la, lb, 'a');
 			else
 				ps_revrotate(la, lb, 'a');
 			j++;
@@ -163,8 +264,8 @@ void **ft_divide(t_intlist **la, t_intlist **lb, int part, int *tab, int size)
 		i++;
 		//ft_printf("%d\n", i);
 	}
-	while ((*la) != NULL)
-		ps_push(la, lb, 'b');
+	//while ((*la) != NULL)
+	//	ps_push(la, lb, 'b');
 }
 
 void	ft_ifswap(t_intlist **la,t_intlist **lb)
@@ -180,7 +281,6 @@ void	ft_ifswap(t_intlist **la,t_intlist **lb)
 		i++;
 	if (ps_lstsize(*la) > 1 && (*la)->content > (*la)->next->content)
 		i += 2;
-	
 	if (i == 3)
 		ps_swap(*la, *lb, 's');
 	if (i == 2)
@@ -307,6 +407,10 @@ int	main(int argc, char **argv)
 	}
 	la = &lsta;
 	lb = &lstb;
+	//ft_printf("i=%d ", i);
+	//ft_printf("x=%d ", ps_lstelem(la, ps_lstsize(*la) - 1)->content);
+	//t = ft_inorder(la, &i);
+	//ft_printf("indice=%d value=%d\n", t, i);
 	ft_pushswap(la, lb);
 	/*ft_printf("\nA\n");
 	ps_lstiter(*la, (ft_printlst));

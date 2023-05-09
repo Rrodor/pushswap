@@ -6,7 +6,7 @@
 /*   By: rrodor <rrodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:18:15 by rrodor            #+#    #+#             */
-/*   Updated: 2023/04/19 20:23:18 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/05/05 18:36:24 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include "libft.h"
 
-# define SIZEPART 10
+# define SIZEPART 8
 
 typedef struct s_intlist
 {
@@ -46,5 +46,8 @@ int			ft_shortpath(t_intlist **la, int *tab, int size, int part);
 void		ft_ifswap(t_intlist **la,t_intlist **lb);
 void		ft_tri(t_intlist **la, t_intlist **lb, int *tab, int size, int max);
 int			ft_inorder(t_intlist **la, int *p);
+void		ft_sort(t_intlist **la, t_intlist **lb);
+int			ft_eighthoccur(t_intlist **l);
+t_intlist	*ps_lstelem(t_intlist **la, int i);
 
 #endif
