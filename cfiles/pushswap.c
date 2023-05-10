@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:52:59 by rrodor            #+#    #+#             */
-/*   Updated: 2023/05/09 20:44:50 by romeo            ###   ########.fr       */
+/*   Updated: 2023/05/10 22:08:53 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ void	ft_pushswap(t_intlist **la, t_intlist **lb)
 	//ft_divide(lb, la, part, tab, size, 2);
 	while (ps_lstsize(*la) < size)
 	{
-		ft_printf ("=================================%d\n", i);
+		//ft_printf ("=================================%d\n", i);
 		ft_tri(la, lb, tab, size, tab[size - 1]);
 		i++;
 	}
+	//ft_printf("%d\n", ft_inorder(la, &i));
 	//ft_printf("%d", part);
 }
 
@@ -90,7 +91,12 @@ void	ft_tri(t_intlist **la, t_intlist **lb, int *tab, int size, int max)
 	//int sizep;
 	
 	j = 0;
-	p = ft_eighthoccur(lb);
+	//ft_printf("a\n");
+	if (ps_lstsize(*lb) > 8)
+		p = ft_eighthoccur(lb);
+	else
+		p = ps_lstlast(*lb)->content;
+	//ft_printf("b\n");
 	p = (*lb)->content;
 	//ps_push(la, lb, 'a');
 	//sizep = size % SIZEPART;
@@ -176,29 +182,6 @@ int	ft_eighthoccur(t_intlist **l)
 	return (L->content);
 }
 
-/*int	ft_inorder(t_intlist **la, int *p)
-{
-	t_intlist *l;
-	int			i;
-	
-	l = *la;
-	i = 0;
-	if (ps_lstsize(l) < 2)
-		return (0);
-	while (l != NULL && l->next != NULL)
-	{
-		if (l->content > l->next->content)
-		{
-			*p = l->next->content;
-			return (ps_lstsize(*la) - i);
-		}
-		l = l->next;
-		i++;
-	}
-	i = ps_lstsize(*la);
-	return (0);
-}*/
-
 int	ft_inorder(t_intlist **la, int *p)
 {
 	t_intlist	*l;
@@ -242,12 +225,14 @@ void **ft_divide(t_intlist **la, t_intlist **lb, int part, int *tab, int size)
 	int			k;
 	int			min;
 	int			max;
+	int			min2;
+	int			max2;
 
 	i = 0;
 	while (i < part - 1 && ps_lstsize(*la) > SIZEPART)
 	{
 		j = 0;
-		while (ps_lstsize(*lb) < (SIZEPART * (i + 1)))
+		while (ps_lstsize(*lb) < (SIZEPART * (i + 1) * 2))
 		{
 			//ft_printf("%d", ps_lstsize(*la));
 			//ft_printf("\n%d\n\n", tab[i * 10]);
