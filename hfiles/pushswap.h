@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:18:15 by rrodor            #+#    #+#             */
-/*   Updated: 2023/05/10 22:01:08 by romeo            ###   ########.fr       */
+/*   Updated: 2023/05/10 23:03:45 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include "libft.h"
 
-# define SIZEPART 8
+# define SIZEPART 40
 
 typedef struct s_intlist
 {

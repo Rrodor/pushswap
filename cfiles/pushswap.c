@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:52:59 by rrodor            #+#    #+#             */
-/*   Updated: 2023/05/10 22:08:53 by romeo            ###   ########.fr       */
+/*   Updated: 2023/05/10 22:55:31 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void	ft_pushswap(t_intlist **la, t_intlist **lb)
 	}*/
 	//ps_push(la, lb, 'b');
 	part = size / SIZEPART;
-	ft_printf("%d\n", part);
+	//ft_printf("%d\n", part);
 	if (size > SIZEPART && size % SIZEPART)
 	{
 		part++;
 		j++;
 	}
 	ft_divide(la, lb, part, tab, size);
-	if (j == 1)
+	/*if (j == 1)
 		ft_sort(la, lb);
 	//ft_divide(lb, la, part, tab, size, 2);
 	while (ps_lstsize(*la) < size)
@@ -52,7 +52,7 @@ void	ft_pushswap(t_intlist **la, t_intlist **lb)
 		//ft_printf ("=================================%d\n", i);
 		ft_tri(la, lb, tab, size, tab[size - 1]);
 		i++;
-	}
+	}*/
 	//ft_printf("%d\n", ft_inorder(la, &i));
 	//ft_printf("%d", part);
 }
@@ -232,29 +232,37 @@ void **ft_divide(t_intlist **la, t_intlist **lb, int part, int *tab, int size)
 	while (i < part - 1 && ps_lstsize(*la) > SIZEPART)
 	{
 		j = 0;
-		while (ps_lstsize(*lb) < (SIZEPART * (i + 1) * 2))
+		while (ps_lstsize(*lb) < (SIZEPART * (i + 2)))
 		{
 			//ft_printf("%d", ps_lstsize(*la));
 			//ft_printf("\n%d\n\n", tab[i * 10]);
 			k = 0;
 			min = tab[i * SIZEPART];
-			while ((i * SIZEPART) + k < size - 1 && k < SIZEPART)
-				k++;
-			max = tab[i * SIZEPART + k];
+			min2 = tab[(i + 1) * SIZEPART];
+			//while ((i * SIZEPART) + k < size - 1 && k < SIZEPART)
+			//	k++;
+			max = tab[i * SIZEPART + SIZEPART];
+			max2 = tab[(i + 1) * SIZEPART + SIZEPART];
+			//ft_printf("v=%d min=%d max=%d min2=%d max2=%d\n",(*la)->content, min, max, min2, max2);
 			//ft_printf ("%d %d %d\n", (*la)->content, min, max);
-			if ((*la)->content < max)
+			if ((*la)->content < max && (*la)->content >= min)
 			{
 				ps_push(la, lb, 'b');
 				//ft_ifswap(la, lb);
 			}
-			else if (ft_shortpath(la, tab, size, i) == 1)
-			//else
-			ps_rotate(la, lb, 'a');
+			else if ((*la)->content < max2 && (*la)->content >= min2)
+			{
+				ps_push(la, lb, 'b');
+				ps_rotate(la, lb, 'b');
+			}
+			//else if (ft_shortpath(la, tab, size, i) == 1)
 			else
-				ps_revrotate(la, lb, 'a');
+				ps_rotate(la, lb, 'a');
+			//else
+			//	ps_revrotate(la, lb, 'a');
 			j++;
 		}
-		i++;
+		i += 2;
 		//ft_printf("%d\n", i);
 	}
 	//while ((*la) != NULL)
@@ -296,7 +304,7 @@ int	ft_shortpath(t_intlist **la, int *tab, int size, int part)
 	min = tab[part * SIZEPART];
 	while ((part * SIZEPART) + i < size - 1 && i < SIZEPART)
 		i++;
-	max = tab[part * SIZEPART + i];
+	max = tab[part * SIZEPART + SIZEPART * 2];
 	//ft_printf("min=%d max=%d\n", (*la)->content, min, max);
 	i = 0;
 	while (l -> next != NULL && (l->content < min || l->content >= max))
