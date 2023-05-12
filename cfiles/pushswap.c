@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:52:59 by rrodor            #+#    #+#             */
-/*   Updated: 2023/05/10 22:55:31 by romeo            ###   ########.fr       */
+/*   Updated: 2023/05/12 18:40:40 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	ft_pushswap(t_intlist **la, t_intlist **lb)
 		part++;
 		j++;
 	}
-	ft_divide(la, lb, part, tab, size);
+	ps_quicksort(la, lb, 0, tab);
+	//ft_divide(la, lb, part, tab, size);
 	/*if (j == 1)
 		ft_sort(la, lb);
 	//ft_divide(lb, la, part, tab, size, 2);
@@ -412,10 +413,12 @@ int	main(int argc, char **argv)
 	//ft_printf("x=%d ", ps_lstelem(la, ps_lstsize(*la) - 1)->content);
 	//t = ft_inorder(la, &i);
 	//ft_printf("indice=%d value=%d\n", t, i);
-	ft_pushswap(la, lb);
-	/*ft_printf("\nA\n");
+	bruteforce3v2(la, lb);
+	//ft_pushswap(la, lb);
+	//ps_quicksort(la, lb, 0, )
+	ft_printf("\nA\n");
 	ps_lstiter(*la, (ft_printlst));
 	ft_printf ("\nB\n");
-	ps_lstiter(*lb, (ft_printlst));*/
+	ps_lstiter(*lb, (ft_printlst));
 	return (0);
 }

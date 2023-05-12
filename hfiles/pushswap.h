@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:18:15 by rrodor            #+#    #+#             */
-/*   Updated: 2023/05/10 23:03:45 by romeo            ###   ########.fr       */
+/*   Updated: 2023/05/12 18:41:04 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include "libft.h"
 
-# define SIZEPART 40
+# define SIZEPART 8
 
 typedef struct s_intlist
 {
@@ -49,5 +49,8 @@ int			ft_inorder(t_intlist **la, int *p);
 void		ft_sort(t_intlist **la, t_intlist **lb);
 int			ft_eighthoccur(t_intlist **l);
 t_intlist	*ps_lstelem(t_intlist **la, int i);
+void		ps_quicksort(t_intlist **la, t_intlist **lb, int part, int *tab);
+void		bruteforce3(t_intlist **la, t_intlist **lb);
+void		bruteforce3v2(t_intlist **la, t_intlist **lb);
 
 #endif
