@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 17:37:11 by romeo             #+#    #+#             */
-/*   Updated: 2023/05/12 19:03:46 by romeo            ###   ########.fr       */
+/*   Updated: 2023/05/16 18:48:10 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,10 @@ void	bruteforce3v2(t_intlist **la, t_intlist **lb)
 		ps_swap(*la, *lb, 'a');
 		ps_push(la, lb, 'a');
 	}
+}
+
+void	bruteforce2(t_intlist **la, t_intlist **lb)
+{
+	if ((*la)->content > (*la)->next->content)
+		ps_swap(*la, *lb, 'a');
 }

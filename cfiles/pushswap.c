@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:52:59 by rrodor            #+#    #+#             */
-/*   Updated: 2023/05/12 18:40:40 by romeo            ###   ########.fr       */
+/*   Updated: 2023/05/17 16:20:48 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,16 @@ void	ft_pushswap(t_intlist **la, t_intlist **lb)
 		part++;
 		j++;
 	}
-	ps_quicksort(la, lb, 0, tab);
-	//ft_divide(la, lb, part, tab, size);
-	/*if (j == 1)
-		ft_sort(la, lb);
+	//ft_printf("%d\n", ps_getmed(la, tab, 5));
+	//ps_quicksort(la, lb, tab, 4);
+	if (ps_lstsize(*la) < SIZEPART * 2)
+	{
+		ps_quicksort(la, lb, tab, ps_lstsize(*la));
+		return ;	
+	}
+	ft_divide(la, lb, part, tab, size);
+	/*if (ps_lstsize(*la) != 0)
+		ps_quicksort(la, lb, tab, ps_lstsize(*la));
 	//ft_divide(lb, la, part, tab, size, 2);
 	while (ps_lstsize(*la) < size)
 	{
@@ -137,7 +143,8 @@ void	ft_tri(t_intlist **la, t_intlist **lb, int *tab, int size, int max)
 		ps_revrotate(la, lb, 'a');
 		i--;
 	}
-	while (ft_inorder(la, &p))
+	ps_quicksort(la, lb, tab, SIZEPART);
+	/*while (ft_inorder(la, &p))
 	{
 		i = 0;
 		while ((*la)->content != p)
@@ -165,7 +172,7 @@ void	ft_tri(t_intlist **la, t_intlist **lb, int *tab, int size, int max)
 			ps_revrotate(la, lb, 'a');
 			//ft_printf ("%d\n", max);
 		}
-	}
+	}*/
 }
 
 int	ft_eighthoccur(t_intlist **l)
@@ -224,16 +231,21 @@ void **ft_divide(t_intlist **la, t_intlist **lb, int part, int *tab, int size)
 	int			i;
 	int			j;
 	int			k;
+	int			l;
 	int			min;
 	int			max;
 	int			min2;
 	int			max2;
 
 	i = 0;
+	if (ps_lstsize(*la) % SIZEPART == 0)
+	{
+		if (ps_lstsize(*la) / SIZEPART)
+	}
 	while (i < part - 1 && ps_lstsize(*la) > SIZEPART)
 	{
 		j = 0;
-		while (ps_lstsize(*lb) < (SIZEPART * (i + 2)))
+		while (ps_lstsize(*lb) < (SIZEPART * (i + 2)) && j < 1000)
 		{
 			//ft_printf("%d", ps_lstsize(*la));
 			//ft_printf("\n%d\n\n", tab[i * 10]);
@@ -242,16 +254,16 @@ void **ft_divide(t_intlist **la, t_intlist **lb, int part, int *tab, int size)
 			min2 = tab[(i + 1) * SIZEPART];
 			//while ((i * SIZEPART) + k < size - 1 && k < SIZEPART)
 			//	k++;
-			max = tab[i * SIZEPART + SIZEPART];
-			max2 = tab[(i + 1) * SIZEPART + SIZEPART];
-			//ft_printf("v=%d min=%d max=%d min2=%d max2=%d\n",(*la)->content, min, max, min2, max2);
+			max = tab[i * SIZEPART + SIZEPART - 1];
+			max2 = tab[(i + 1) * SIZEPART + SIZEPART - 1];
+			ft_printf("v=%d min=%d max=%d min2=%d max2=%d\n",(*la)->content, min, max, min2, max2);
 			//ft_printf ("%d %d %d\n", (*la)->content, min, max);
-			if ((*la)->content < max && (*la)->content >= min)
+			if ((*la)->content <= max && (*la)->content >= min)
 			{
 				ps_push(la, lb, 'b');
 				//ft_ifswap(la, lb);
 			}
-			else if ((*la)->content < max2 && (*la)->content >= min2)
+			else if ((*la)->content <= max2 && (*la)->content >= min2)
 			{
 				ps_push(la, lb, 'b');
 				ps_rotate(la, lb, 'b');
@@ -262,6 +274,16 @@ void **ft_divide(t_intlist **la, t_intlist **lb, int part, int *tab, int size)
 			//else
 			//	ps_revrotate(la, lb, 'a');
 			j++;
+		}
+		if (j == 1000)
+		{	
+			break;
+		}
+		j = SIZEPART;
+		while (j > 0)
+		{
+			j--;
+			ps_revrotate(la, lb, 'b');
 		}
 		i += 2;
 		//ft_printf("%d\n", i);
@@ -413,9 +435,10 @@ int	main(int argc, char **argv)
 	//ft_printf("x=%d ", ps_lstelem(la, ps_lstsize(*la) - 1)->content);
 	//t = ft_inorder(la, &i);
 	//ft_printf("indice=%d value=%d\n", t, i);
-	bruteforce3v2(la, lb);
-	//ft_pushswap(la, lb);
+	//bruteforce3v2(la, lb);
+	ft_pushswap(la, lb);
 	//ps_quicksort(la, lb, 0, )
+	//ps_revrotate(la, lb, 'a');
 	ft_printf("\nA\n");
 	ps_lstiter(*la, (ft_printlst));
 	ft_printf ("\nB\n");
