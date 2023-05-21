@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:12:52 by romeo             #+#    #+#             */
-/*   Updated: 2023/05/17 15:00:23 by romeo            ###   ########.fr       */
+/*   Updated: 2023/05/21 16:38:00 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ void	ps_quicksort(t_intlist **la, t_intlist **lb, int *tab, int size)
 		k--;
 	}
 	//ft_printf("s1=%d s2=%d", s1, s2);
+	if (s1 == 5)
+		bruteforce5(la, lb);
+	if (s1 == 4)
+		bruteforce4(la, lb);
 	if (s1 == 3)
 		bruteforce3v2(la, lb);
 	else if (s1 == 2)
@@ -72,7 +76,10 @@ void	ps_quicksort(t_intlist **la, t_intlist **lb, int *tab, int size)
 	//ps_lstiter(*la, (ft_printlst));
 	//ft_printf ("\nB\n");
 	//ps_lstiter(*lb, (ft_printlst));
-	if (s2 <= 3)
+	//ft_printf("%d %d\n", s1, size);
+	if (ft_inorder2(la, s1, size - 1) == 0)
+		return ;
+	if (s2 <= 5)
 	{
 		j = 0;
 		while (s1 > 0)
@@ -85,6 +92,10 @@ void	ps_quicksort(t_intlist **la, t_intlist **lb, int *tab, int size)
 		j++;
 		//ft_printf("\nAAAAA\n");
 		//ps_lstiter(*la, (ft_printlst));
+		if (s2 == 5)
+			bruteforce5(la, lb);
+		if (s2 == 4)
+			bruteforce4(la, lb);
 		if (s2 == 3)
 			bruteforce3v2(la, lb);
 		if (s2 == 2)

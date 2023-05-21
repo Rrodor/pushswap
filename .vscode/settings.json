@@ -1,5 +1,8 @@
 {
 	"files.associations": {
-		"pushswap_quicksort.C": "cpp"
+		"pushswap_quicksort.C": "cpp",
+		"random": "c",
+		"limits": "c",
+		"algorithm": "c"
 	}
 }

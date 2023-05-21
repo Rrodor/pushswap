@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 14:52:59 by rrodor            #+#    #+#             */
-/*   Updated: 2023/05/17 16:20:48 by romeo            ###   ########.fr       */
+/*   Updated: 2023/05/21 16:29:47 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@ void	ft_printlst(int n)
 void	ft_pushswap(t_intlist **la, t_intlist **lb)
 {
 	int		*tab;
-	int		size;
+	int		size1;
 	int		i;
 	int		part;
 	int		j;
+	t_size	size;
 	
 	i = 0;
 	j = 0;
-	tab = ft_reftab(la, &size);
+	tab = ft_reftab(la, &size1);
 	//ft_printf("size = %d\n", size);
 	/*while (i < size)
 	{
@@ -36,30 +37,43 @@ void	ft_pushswap(t_intlist **la, t_intlist **lb)
 		i++;
 	}*/
 	//ps_push(la, lb, 'b');
-	part = size / SIZEPART;
+	part = size1 / SIZEPART;
 	//ft_printf("%d\n", part);
-	if (size > SIZEPART && size % SIZEPART)
+	if (size1 > SIZEPART && size1 % SIZEPART)
 	{
 		part++;
 		j++;
 	}
+	//ft_printf("%d\n", ft_inorder2(la, 3, 6));
 	//ft_printf("%d\n", ps_getmed(la, tab, 5));
 	//ps_quicksort(la, lb, tab, 4);
+	//bruteforce5(la, lb);
 	if (ps_lstsize(*la) < SIZEPART * 2)
 	{
 		ps_quicksort(la, lb, tab, ps_lstsize(*la));
 		return ;	
 	}
-	ft_divide(la, lb, part, tab, size);
-	/*if (ps_lstsize(*la) != 0)
+	size.spart = SIZEPART;
+	size.stab = size1;
+	ps_divide(la, lb, tab, size);
+	j = 0;
+	if (ps_lstsize(*la) == 0)
+	{
+		while (j < size.spart)
+		{
+			ps_push(la, lb, 'a');
+			j++;
+		}
+	}
+	if (ps_lstsize(*la) != 0)
 		ps_quicksort(la, lb, tab, ps_lstsize(*la));
 	//ft_divide(lb, la, part, tab, size, 2);
-	while (ps_lstsize(*la) < size)
+	while (ps_lstsize(*la) < size.stab)
 	{
 		//ft_printf ("=================================%d\n", i);
-		ft_tri(la, lb, tab, size, tab[size - 1]);
+		ft_tri(la, lb, tab, size.stab, tab[size.stab - 1]);
 		i++;
-	}*/
+	}
 	//ft_printf("%d\n", ft_inorder(la, &i));
 	//ft_printf("%d", part);
 }
@@ -212,19 +226,6 @@ int	ft_inorder(t_intlist **la, int *p)
 	return (0);
 }
 
-t_intlist	*ps_lstelem(t_intlist **la, int i)
-{
-	t_intlist	*l;
-
-	l = *la;
-	while (i > 0)
-	{
-		l = l->next;
-		i--;
-	}
-	return (l);
-}
-
 void **ft_divide(t_intlist **la, t_intlist **lb, int part, int *tab, int size)
 {
 	//t_intlist	**lb;
@@ -238,10 +239,10 @@ void **ft_divide(t_intlist **la, t_intlist **lb, int part, int *tab, int size)
 	int			max2;
 
 	i = 0;
-	if (ps_lstsize(*la) % SIZEPART == 0)
+	/*if (ps_lstsize(*la) % SIZEPART == 0)
 	{
 		if (ps_lstsize(*la) / SIZEPART)
-	}
+	}*/
 	while (i < part - 1 && ps_lstsize(*la) > SIZEPART)
 	{
 		j = 0;
@@ -439,9 +440,9 @@ int	main(int argc, char **argv)
 	ft_pushswap(la, lb);
 	//ps_quicksort(la, lb, 0, )
 	//ps_revrotate(la, lb, 'a');
-	ft_printf("\nA\n");
+	/*ft_printf("\nA\n");
 	ps_lstiter(*la, (ft_printlst));
 	ft_printf ("\nB\n");
-	ps_lstiter(*lb, (ft_printlst));
+	ps_lstiter(*lb, (ft_printlst));*/
 	return (0);
 }

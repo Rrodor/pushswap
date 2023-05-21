@@ -6,7 +6,7 @@
 /*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:18:15 by rrodor            #+#    #+#             */
-/*   Updated: 2023/05/17 15:43:41 by romeo            ###   ########.fr       */
+/*   Updated: 2023/05/21 17:20:15 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,19 @@
 # include <stdlib.h>
 # include "libft.h"
 
-# define SIZEPART 11
+# define SIZEPART 100
 
 typedef struct s_intlist
 {
 	int				content;
 	struct s_intlist	*next;
 }	t_intlist;
+
+typedef struct s_size
+{
+	int	stab;
+	int	spart;
+}	t_size;
 
 int			testatoi(char *str);
 void		ft_printlst(int n);
@@ -54,5 +60,14 @@ void		bruteforce3(t_intlist **la, t_intlist **lb);
 void		bruteforce3v2(t_intlist **la, t_intlist **lb);
 void		bruteforce2(t_intlist **la, t_intlist **lb);
 int			ps_getmed(t_intlist **la, int *tab, int size);
+void		**ps_divide1(t_intlist **la, t_intlist **lb, int *tab, t_size size);
+void		**ps_divide2(t_intlist **la, t_intlist **lb, int *tab, t_size size);
+void		ps_divide(t_intlist **la, t_intlist **lb, int *tab, t_size size);
+int			ft_inorder2(t_intlist **la, int start, int end);
+void		bruteforce5(t_intlist **la, t_intlist **lb);
+void		bruteforce5p2(t_intlist **la, t_intlist **lb, int min);
+void		bruteforce4p2(t_intlist **la, t_intlist **lb, int min);
+void		bruteforce4(t_intlist **la, t_intlist **lb);
+int			bf5_last(t_intlist **la);
 
 #endif

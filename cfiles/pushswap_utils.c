@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pushswap_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrodor <rrodor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 18:46:18 by rrodor            #+#    #+#             */
-/*   Updated: 2023/04/15 14:41:57 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/05/19 18:27:56 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,46 +29,37 @@ int	testatoi(char *str)
     return (1);
 }
 
-int checkolst(t_intlist **la, int *d)
+int	ft_inorder2(t_intlist **la, int start, int end)
 {
-    t_intlist  *t;
-    int     i;
+	t_intlist	*l;
+	int			i;
+	int			j;
 
-    i = 0;
-    t = *la;
-    while (t->next)
-    {
-        if (t->content > (t->next)->content)
-        {
-            *d = (t->next)->content;
-            return (i);
-        }
-        t = t->next;
-        i++;
-    }
-    return (-1);
+	i = end;
+	j = ps_lstelem(la, start)->content;
+	//ft_printf("start=%d end=%d\n", j, ps_lstelem(la, end)->content);
+	l = ps_lstelem(la, i-1);
+	while (i >= start)
+	{
+		if (l->content > l->next->content)
+			return (1);
+		l = ps_lstelem(la, i-1);
+		i--;
+	}
+	return (0);
 }
-int checkrevolst(t_intlist **la, int *d)
-{
-    t_intlist  *t;
-    int     i;
 
-    if (!la || !*la)
-        return (-1);
-    i = 0;
-    t = *la;
-    while (t->next)
-    {
-        if (t->content < (t->next)->content)
-        {
-            *d = (t->next)->content;
-            //ft_printf("j = %d, t->next->content = %d", j, (t->next)->content);
-            return (i);
-        }
-        t = t->next;
-        i++;
-    }
-    return (-1);
+t_intlist	*ps_lstelem(t_intlist **la, int i)
+{
+	t_intlist	*l;
+
+	l = *la;
+	while (i > 0)
+	{
+		l = l->next;
+		i--;
+	}
+	return (l);
 }
 
 t_intlist *ft_lstlastlast(t_intlist *l)
