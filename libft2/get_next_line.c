@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrodor <rrodor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rrodor <rrodor@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 16:56:24 by rrodor            #+#    #+#             */
-/*   Updated: 2023/03/27 16:45:47 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/06/09 17:04:09 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ int	get_next_line(int fd, char **line)
 	if (gnl_strchr(str, '\n') == 0)
 		l = read(fd, buf, BUFFER_SIZE);
 	if (l == 0 && !str)
-	{
 		free(buf);
+	if (l == 0 && !str)
 		return (0);
-	}
 	if (l == 0 && str[0] == 0)
 	{
 		free(buf);

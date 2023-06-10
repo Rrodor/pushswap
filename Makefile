@@ -1,12 +1,12 @@
 NAME= push_swap
-SRC= pushswap.c pushswap_mvm.c pushswap_utils.c pushswap_lst.c pushswap_lst2.c ps_quicksort.c ps_bruteforce.c ps_divide.c
+SRC= ps_main.c pushswap.c pushswap_mvm.c pushswap_utils.c pushswap_lst.c pushswap_lst2.c ps_quicksort.c ps_bruteforce.c ps_divide.c ps_bruteforce2.c ps_bruteforce3.c
 SRCPATH= ./cfiles/
 OBJ= $(SRC:.c=.o)
 OBJS= $(addprefix $(OBJPATH), $(OBJ))
 SRCS= $(addprefix $(SRCPATH), $(SRC))
 OBJPATH= ./ofiles/
 
-CC= gcc
+CC= gcc -Wall -Wextra -Werror
 
 all: makelib $(NAME)
 

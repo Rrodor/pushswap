@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pushswap_mvm.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrodor <rrodor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: romeo <romeo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 18:41:07 by rrodor            #+#    #+#             */
-/*   Updated: 2023/04/15 14:40:27 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/05/24 21:44:18 by romeo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,7 @@ void	ps_revrotate(t_intlist **la, t_intlist **lb, char c)
 		ps_lstadd_front(la, ps_lstnew((ps_lstlast(*la))->content));
 		t = la;
 		while (((*t)->next)->next && (*t)->next)
-		{
 			t = &((*t)->next);
-			//ft_printf("T%dT\n", (*t)->content);
-		}
 		free(ps_lstlast(*la));
 		(*t)->next = NULL;
 	}
