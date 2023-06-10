@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrodor <rrodor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rrodor <rrodor@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:34:24 by rrodor            #+#    #+#             */
-/*   Updated: 2023/03/09 15:51:49 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/06/10 17:22:30 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_printf(const char *str, ...)
 	int		l;
 	va_list	argptr;
 
-	va_start(argptr, 0);
+	va_start(argptr, str);
 	i = 0;
 	l = 0;
 	while (str[i])
