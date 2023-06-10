@@ -6,7 +6,7 @@
 /*   By: rrodor <rrodor@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:31:02 by rrodor            #+#    #+#             */
-/*   Updated: 2023/06/10 16:45:28 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/06/10 17:17:16 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,10 @@ int	main(int argc, char **argv)
 			ps_lstadd_back(&lsta, ps_lstnew(ft_atoi(argv[i])));
 		i++;
 	}
-	if (argc == 2)
+	if (argc == 3)
 		bruteforce2(&lsta, &lstb);
-	ft_pushswap(&lsta, &lstb);
+	else
+		ft_pushswap(&lsta, &lstb);
 	ps_lstclear(&lsta);
 	return (0);
 }

@@ -13,11 +13,11 @@ all: makelib $(NAME)
 makelib:
 	make -C ./libft2
 
-%.o: $(SRCPATH)%.c
+$(OBJPATH)%.o: $(SRCPATH)%.c
 	mkdir -p ofiles
-	$(CC) -I./hfiles -I./libft2  -o $(OBJPATH)$@ -c $<
+	$(CC) -I./hfiles -I./libft2  -o $@ -c $<
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJS)
 	$(CC) $(OBJS) -o $(NAME) -Llibft2 -lft -L/usr/lib -I./libft2 -I./hfiles
 
 clean:
