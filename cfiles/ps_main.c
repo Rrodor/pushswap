@@ -6,17 +6,12 @@
 /*   By: rrodor <rrodor@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:31:02 by rrodor            #+#    #+#             */
-/*   Updated: 2023/06/10 17:17:16 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/06/10 19:01:43 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 #include "libft.h"
-
-void	ft_printlst(int n)
-{
-	ft_printf("%d\n", n);
-}
 
 int	*ft_reftab(t_intlist **la, int *size)
 {
@@ -77,8 +72,6 @@ int	ps_islstvalid(int argc, char **argv)
 		ft_printf("too few argument, format is ./push_swap [list]\n");
 		return (0);
 	}
-	if (argc == 2)
-		return (0);
 	while (i < argc)
 	{
 		if (!testatoi(argv[i]))
@@ -87,6 +80,34 @@ int	ps_islstvalid(int argc, char **argv)
 			return (0);
 		}
 		i++;
+	}
+	if (argc == 2)
+		return (0);
+	return (1);
+}
+
+int	ps_testdoublon(t_intlist **la)
+{
+	t_intlist	*l1;
+	t_intlist	*l2;
+
+	l1 = *la;
+	while (ps_lstsize(l1) > 1)
+	{
+		l2 = l1->next;
+		if (l2 == NULL)
+			return (0);
+		while (ps_lstsize(l2) >= 1)
+		{
+			if (l2->content == l1->content)
+			{
+				ft_printf("Error : %d is present", l1->content);
+				ft_printf(" more than one time\n");
+				return (0);
+			}
+			l2 = l2->next;
+		}
+		l1 = l1->next;
 	}
 	return (1);
 }
@@ -99,19 +120,20 @@ int	main(int argc, char **argv)
 
 	if (ps_islstvalid(argc, argv) == 0)
 		return (0);
-	i = 1;
+	i = 0;
 	lsta = NULL;
 	lstb = NULL;
-	while (i < argc)
+	while (++i < argc)
+		ps_lstadd_back(&lsta, ps_lstnew(ft_atoi(argv[i])));
+	if (!ps_testdoublon(&lsta))
 	{
-		if (!(lsta))
-			ps_lstadd_back(&lsta, ps_lstnew(ft_atoi(argv[i])));
-		else
-			ps_lstadd_back(&lsta, ps_lstnew(ft_atoi(argv[i])));
-		i++;
+		ps_lstclear(&lsta);
+		return (0);
 	}
 	if (argc == 3)
 		bruteforce2(&lsta, &lstb);
+	if (argc == 6)
+		bruteforce5short(&lsta, &lstb);
 	else
 		ft_pushswap(&lsta, &lstb);
 	ps_lstclear(&lsta);

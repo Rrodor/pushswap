@@ -6,7 +6,7 @@
 /*   By: rrodor <rrodor@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:18:15 by rrodor            #+#    #+#             */
-/*   Updated: 2023/06/09 17:28:55 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/06/10 18:53:11 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,7 @@ int			ps_islstvalid(int argc, char **argv);
 int			ft_reftab2(t_intlist **la, int *j, int *size);
 void		ps_lstclear(t_intlist **lst);
 void		ps_lstdelone(t_intlist *lst);
+void		bruteforce5shortp2(t_intlist **la, t_intlist **lb, int min);
+void		bruteforce5short(t_intlist **la, t_intlist **lb);
 
 #endif

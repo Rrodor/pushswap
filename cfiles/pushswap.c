@@ -6,7 +6,7 @@
 /*   By: rrodor <rrodor@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:30:58 by rrodor            #+#    #+#             */
-/*   Updated: 2023/06/10 17:10:43 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/06/10 18:58:45 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	ft_pushswap(t_intlist **la, t_intlist **lb)
 	tab = ft_reftab(la, &size1);
 	size.spart = ps_shortsort(la, lb, tab, size1);
 	if (size1 < 26)
+	{
+		free(tab);
 		return ;
+	}
 	size.stab = size1;
 	ps_divide(la, lb, tab, size);
 	j = 0;

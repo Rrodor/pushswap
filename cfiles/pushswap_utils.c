@@ -6,7 +6,7 @@
 /*   By: rrodor <rrodor@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 18:46:18 by rrodor            #+#    #+#             */
-/*   Updated: 2023/06/09 16:43:52 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/06/10 18:30:38 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,28 @@
 
 int	testatoi(char *str)
 {
-	int	i;
+	int				i;
+	long long int	test;
+	int				j;
 
 	i = 0;
+	j = 1;
+	test = 0;
 	if (str[i] == '-' || str[i] == '+')
+	{
+		j = -1;
 		i++;
+	}
+	if (!str[i])
+		return (0);
 	while (str[i])
 	{
 		if (ft_isdigit(str[i]))
 			i++;
 		else
+			return (0);
+		test = test * 10 + str[i - 1] - 48;
+		if (test > 2147483648 || (test == 2147483648 && j == 1))
 			return (0);
 	}
 	return (1);
