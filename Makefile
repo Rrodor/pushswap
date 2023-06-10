@@ -22,7 +22,7 @@ $(NAME): $(OBJS)
 
 clean:
 	rm -f $(OBJS)
-	rmdir ofiles
+	rm -rf ofiles
 	make clean -C ./libft2
 
 fclean: clean
