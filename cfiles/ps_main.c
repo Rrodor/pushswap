@@ -6,7 +6,7 @@
 /*   By: rrodor <rrodor@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:31:02 by rrodor            #+#    #+#             */
-/*   Updated: 2023/06/10 19:01:43 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/06/13 18:31:28 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	ps_islstvalid(int argc, char **argv)
 		ft_printf("too few argument, format is ./push_swap [list]\n");
 		return (0);
 	}
+	if (argc == 2)
+		return (0);
 	while (i < argc)
 	{
 		if (!testatoi(argv[i]))
@@ -81,8 +83,6 @@ int	ps_islstvalid(int argc, char **argv)
 		}
 		i++;
 	}
-	if (argc == 2)
-		return (0);
 	return (1);
 }
 
@@ -118,6 +118,8 @@ int	main(int argc, char **argv)
 	t_intlist	*lsta;
 	t_intlist	*lstb;
 
+	if (argc == 2)
+		argv = ps_split(argv[1], ' ', &argc);
 	if (ps_islstvalid(argc, argv) == 0)
 		return (0);
 	i = 0;
@@ -125,17 +127,15 @@ int	main(int argc, char **argv)
 	lstb = NULL;
 	while (++i < argc)
 		ps_lstadd_back(&lsta, ps_lstnew(ft_atoi(argv[i])));
-	if (!ps_testdoublon(&lsta))
+	if (ps_testdoublon(&lsta))
 	{
-		ps_lstclear(&lsta);
-		return (0);
+		if (argc == 3)
+			bruteforce2(&lsta, &lstb);
+		if (argc == 6)
+			bruteforce5short(&lsta, &lstb);
+		else
+			ft_pushswap(&lsta, &lstb);
 	}
-	if (argc == 3)
-		bruteforce2(&lsta, &lstb);
-	if (argc == 6)
-		bruteforce5short(&lsta, &lstb);
-	else
-		ft_pushswap(&lsta, &lstb);
 	ps_lstclear(&lsta);
 	return (0);
 }

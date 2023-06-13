@@ -6,7 +6,7 @@
 /*   By: rrodor <rrodor@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:18:15 by rrodor            #+#    #+#             */
-/*   Updated: 2023/06/10 18:53:11 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/06/13 18:17:36 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,9 @@ void		ps_lstclear(t_intlist **lst);
 void		ps_lstdelone(t_intlist *lst);
 void		bruteforce5shortp2(t_intlist **la, t_intlist **lb, int min);
 void		bruteforce5short(t_intlist **la, t_intlist **lb);
+int			ps_countwrd(const char *s, char c);
+int			ps_splitinit(char const *s, char c, int *i, int *j);
+char		**ps_split(char const *s, char c, int *argc);
+char		*ps_name(void);
 
 #endif
