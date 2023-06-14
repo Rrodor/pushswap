@@ -6,7 +6,7 @@
 /*   By: rrodor <rrodor@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:31:02 by rrodor            #+#    #+#             */
-/*   Updated: 2023/06/13 18:31:28 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/06/14 13:36:04 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,12 @@ int	ps_islstvalid(int argc, char **argv)
 		return (0);
 	}
 	if (argc == 2)
+	{
+		free(argv[0]);
+		free(argv[1]);
+		free(argv);
 		return (0);
+	}
 	while (i < argc)
 	{
 		if (!testatoi(argv[i]))
@@ -115,9 +120,11 @@ int	ps_testdoublon(t_intlist **la)
 int	main(int argc, char **argv)
 {
 	int			i;
+	int			j;
 	t_intlist	*lsta;
 	t_intlist	*lstb;
 
+	j = argc;
 	if (argc == 2)
 		argv = ps_split(argv[1], ' ', &argc);
 	if (ps_islstvalid(argc, argv) == 0)
@@ -136,6 +143,5 @@ int	main(int argc, char **argv)
 		else
 			ft_pushswap(&lsta, &lstb);
 	}
-	ps_lstclear(&lsta);
-	return (0);
+	return (ps_free(&lsta, argv, j));
 }

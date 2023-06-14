@@ -6,7 +6,7 @@
 /*   By: rrodor <rrodor@student.42perpignan.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 15:18:15 by rrodor            #+#    #+#             */
-/*   Updated: 2023/06/13 18:17:36 by rrodor           ###   ########.fr       */
+/*   Updated: 2023/06/14 13:36:24 by rrodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ int			ps_countwrd(const char *s, char c);
 int			ps_splitinit(char const *s, char c, int *i, int *j);
 char		**ps_split(char const *s, char c, int *argc);
 char		*ps_name(void);
+int			ps_free(t_intlist **la, char **argv, int j);
 
 #endif
